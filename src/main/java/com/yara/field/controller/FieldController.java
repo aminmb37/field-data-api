@@ -3,6 +3,7 @@ package com.yara.field.controller;
 import com.yara.field.client.Weather;
 import com.yara.field.domain.Field;
 import com.yara.field.dto.FieldDto;
+import com.yara.field.dto.PolygonDto;
 import com.yara.field.mapper.FieldMapper;
 import com.yara.field.service.FieldService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,12 @@ public class FieldController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteField(@PathVariable("fieldId") UUID fieldId) {
         fieldService.delete(fieldId);
+    }
+
+    @GetMapping("/{fieldId}/polygon")
+    @ResponseStatus(HttpStatus.OK)
+    public PolygonDto createFieldPolygon(@PathVariable("fieldId") UUID fieldId) {
+        return fieldService.createFieldPolygon(fieldId);
     }
 
     @GetMapping("/{fieldId}/weather")

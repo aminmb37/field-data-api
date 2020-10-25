@@ -19,6 +19,8 @@ import java.util.UUID;
 public class FieldServiceImpl implements FieldService {
     private final static int HISTORY_DAYS_COUNT = 7;
 
+    private final WeatherClient weatherClient = new AgroMonitoringClient();
+
     private final FieldRepository fieldRepository;
 
     @Autowired
@@ -65,16 +67,19 @@ public class FieldServiceImpl implements FieldService {
     }
 
     @Override
-    public List<Weather> getWeatherHistory(UUID fieldId) {
+    public PolygonDto createFieldPolygon(UUID fieldId) {
         Field field = fieldRepository.findById(fieldId)
                 .orElseThrow(() -> new EntityNotFoundException("Field not found: " + fieldId));
 
-        WeatherClient weatherClient = new AgroMonitoringClient();
+        return weatherClient.createPolygon(FieldMapper.fromFieldToFieldDto(field));
+    }
 
-        PolygonDto polygonDto = weatherClient.createPolygon(FieldMapper.fromFieldToFieldDto(field));
+    @Override
+    public List<Weather> getWeatherHistory(UUID fieldId) {
+        PolygonDto polygonDto = createFieldPolygon(fieldId);
 
         long time = System.currentTimeMillis() / 1000;
-        String startDay = String.valueOf(time - 7 * 24 * 60 * 60);
+        String startDay = String.valueOf(time - HISTORY_DAYS_COUNT * 24 * 60 * 60);
         String endDay = String.valueOf(time);
 
         return weatherClient.weatherHistory(polygonDto.getPolygonId(), startDay, endDay);
