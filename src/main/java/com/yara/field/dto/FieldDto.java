@@ -1,25 +1,26 @@
 package com.yara.field.dto;
 
-import com.yara.field.domain.Boundary;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.sql.Timestamp;
-import java.util.Locale;
 import java.util.UUID;
 
 public class FieldDto extends BaseItem {
     private String name;
     private String countryCode;
-    private Boundary boundary;
+
+    @JsonProperty("geo_json")
+    private BoundaryDto boundaryDto;
 
     public FieldDto() {
     }
 
     public FieldDto(UUID id, Timestamp created, Timestamp updated, String name,
-                    String countryCode, Boundary boundary) {
+                    String countryCode, BoundaryDto boundaryDto) {
         super(id, created, updated);
         this.name = name;
         this.countryCode = countryCode;
-        this.boundary = boundary;
+        this.boundaryDto = boundaryDto;
     }
 
     public String getName() {
@@ -38,12 +39,12 @@ public class FieldDto extends BaseItem {
         this.countryCode = countryCode;
     }
 
-    public Boundary getBoundary() {
-        return boundary;
+    public BoundaryDto getBoundaryDto() {
+        return boundaryDto;
     }
 
-    public void setBoundary(Boundary boundary) {
-        this.boundary = boundary;
+    public void setBoundaryDto(BoundaryDto boundaryDto) {
+        this.boundaryDto = boundaryDto;
     }
 
     @Override
@@ -51,7 +52,7 @@ public class FieldDto extends BaseItem {
         return "FieldDto{" +
                 "name='" + name + '\'' +
                 ", countryCode='" + countryCode + '\'' +
-                ", boundary=" + boundary +
+                ", boundaryDto=" + boundaryDto +
                 "} " + super.toString();
     }
 }

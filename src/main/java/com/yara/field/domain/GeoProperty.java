@@ -21,6 +21,11 @@ public class GeoProperty extends BaseEntity {
     public GeoProperty() {
     }
 
+    public GeoProperty(String key, String value) {
+        this.propKey = key;
+        this.propVal = value;
+    }
+
     public Boundary getBoundary() {
         return boundary;
     }

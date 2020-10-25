@@ -20,6 +20,12 @@ public class Boundary extends BaseEntity {
     public Boundary() {
     }
 
+    public Boundary(GeoJsonType type, List<GeoProperty> properties, Geometry geometry) {
+        geoJsonType = type;
+        this.properties = properties;
+        this.geometry = geometry;
+    }
+
     public GeoJsonType getGeoJsonType() {
         return geoJsonType;
     }

@@ -1,5 +1,6 @@
 package com.yara.field.controller;
 
+import com.yara.field.client.Weather;
 import com.yara.field.domain.Field;
 import com.yara.field.dto.FieldDto;
 import com.yara.field.mapper.FieldMapper;
@@ -51,5 +52,11 @@ public class FieldController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteField(@PathVariable("fieldId") UUID fieldId) {
         fieldService.delete(fieldId);
+    }
+
+    @GetMapping("/{fieldId}/weather")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Weather> getWeatherHistory(@PathVariable("fieldId") UUID fieldId) {
+        return fieldService.getWeatherHistory(fieldId);
     }
 }

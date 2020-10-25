@@ -1,6 +1,5 @@
 package com.yara.field.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.geo.Point;
 
 import javax.persistence.*;
@@ -8,7 +7,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "coordinate")
 public class Coordinate extends BaseEntity {
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "boundary_id")
     private Boundary boundary;
@@ -17,6 +15,10 @@ public class Coordinate extends BaseEntity {
     private Point point;
 
     public Coordinate() {
+    }
+
+    public Coordinate(Double x, Double y) {
+        point = new Point(x, y);
     }
 
     public Boundary getBoundary() {

@@ -1,11 +1,18 @@
 package com.yara.field.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.sql.Timestamp;
 import java.util.UUID;
 
 public class BaseItem {
+    @JsonIgnoreProperties(allowGetters = true)
     private UUID id;
+
+    @JsonIgnoreProperties(allowGetters = true)
     private Timestamp created;
+
+    @JsonIgnoreProperties(allowGetters = true)
     private Timestamp updated;
 
     public BaseItem() {

@@ -1,5 +1,6 @@
 package com.yara.field.service;
 
+import com.yara.field.client.Weather;
 import com.yara.field.domain.Field;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface FieldService {
     Field update(Field field, UUID fieldId);
 
     void delete(UUID fieldId);
+
+    List<Weather> getWeatherHistory(UUID fieldId);
 }

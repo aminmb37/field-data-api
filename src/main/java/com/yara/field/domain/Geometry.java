@@ -2,7 +2,10 @@ package com.yara.field.domain;
 
 import com.yara.field.value.GeometryType;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 @Embeddable
@@ -14,6 +17,11 @@ public class Geometry {
     private List<Coordinate> coordinates;
 
     public Geometry() {
+    }
+
+    public Geometry(GeometryType type, List<Coordinate> coordinates) {
+        geometryType = type;
+        this.coordinates = coordinates;
     }
 
     public GeometryType getGeometryType() {
